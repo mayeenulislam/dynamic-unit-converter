@@ -65,6 +65,12 @@ class Converter {
 				break;
 		}
 
+		//Default value setting
+		$mg = !empty( $mg ) ? $mg : 0;
+		$g  = !empty( $g ) ? $g : 0;
+		$kg = !empty( $kg ) ? $kg : 0;
+
+		//Finalizing the result
 		$this->result = array (
 			'mg'	=> $mg,
 			'g'		=> $g,
@@ -78,22 +84,25 @@ class Converter {
 
 }
 ?>
-<h2>Dynamic Unit Converter (Weight)</h2>
-<form action="" method="POST">
-	<label for="user-amount">Amount: </label>
-	<input type="text" id="user-amount" name="user_amount" placeholder="The amount" value="" autocomplete="off">
+<div style="font: 100% Calibri, Arial, Helvetica, sans-serif;">
+	<h2>Dynamic Unit Converter (Weight)</h2>
+	<p>A unit converter to intercept the default conversion unit into any custom value; i.e. 1kg = 1000gm, but we want it to be 1kg = 1200gm, simply choose the unit and pass your dynamic value to convert any amount.</p>
+	<hr>
+	<form action="" method="POST">
+		<label for="user-amount">Amount: </label>
+		<input type="text" id="user-amount" name="user_amount" placeholder="The amount" value="" autocomplete="off">
 
-	<select id="user-unit" name="user_unit">
-		<option value="">Select unit</option>
-		<option value="mg">Milligram (mg)</option>
-		<option value="g">Gram (g)</option>
-		<option value="kg">Killogram (kg)</option>
-	</select>
+		<select id="user-unit" name="user_unit">
+			<option value="">Select unit</option>
+			<option value="mg">Milligram (mg)</option>
+			<option value="g">Gram (g)</option>
+			<option value="kg">Killogram (kg)</option>
+		</select>
 
-	<input type="text" id="dynamic-unit" name="dynamic_unit" placeholder="Dynamic amount (optional)" value="" autocomplete="off">
+		<input type="text" id="dynamic-unit" name="dynamic_unit" placeholder="Dynamic amount (optional)" value="" autocomplete="off">
 
-	<input type="submit" name="submit" value="Submit">
-</form>
+		<input type="submit" name="submit" value="Submit">
+	</form>
 
 <?php
 
@@ -114,15 +123,17 @@ if( isset( $_POST['submit'] ) ) {
 	echo '</pre>';
 
 	echo '<h4>Human Readable Format (using <code>printf()</code>)</h4>';
-	echo 'mg: '; printf( '%f', $unit_in_action->get_weight()['mg'] ); echo '<br>';
-	echo 'g: '; printf( '%f', $unit_in_action->get_weight()['g'] ); echo '<br>';
-	echo 'kg: '; printf( '%f', $unit_in_action->get_weight()['kg'] );
+	echo '<strong>mg:</strong> '; printf( '%f', $unit_in_action->get_weight()['mg'] ); echo '<br>';
+	echo '<strong>g:</strong> '; printf( '%f', $unit_in_action->get_weight()['g'] ); echo '<br>';
+	echo '<strong>kg:</strong> '; printf( '%f', $unit_in_action->get_weight()['kg'] );
 
 	/**
 	 * Alternative ways
 	 */
 	echo '<h4>Human Readable Format (using <code>number_format()</code>)</h4>';
-	echo number_format( $unit_in_action->get_weight()['mg'], 6 ); echo '<br>';
-	echo number_format( $unit_in_action->get_weight()['g'], 6 ); echo '<br>';
-	echo number_format( $unit_in_action->get_weight()['kg'], 6 );
+	echo '<strong>mg:</strong> ', number_format( $unit_in_action->get_weight()['mg'], 6 ), '<br>';
+	echo '<strong>g:</strong> ', number_format( $unit_in_action->get_weight()['g'], 6 ), '<br>';
+	echo '<strong>kg:</strong> ', number_format( $unit_in_action->get_weight()['kg'], 6 );
 }
+?>
+</div>
